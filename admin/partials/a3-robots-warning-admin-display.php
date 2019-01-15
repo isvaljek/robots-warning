@@ -8,8 +8,8 @@
  * @link       https://appandapp.net/isvaljek
  * @since      1.0.0
  *
- * @package    Robots_Warning
- * @subpackage Robots_Warning/admin/partials
+ * @package    A3_Robots_Warning
+ * @subpackage A3_Robots_Warning/admin/partials
  */
 ?>
 

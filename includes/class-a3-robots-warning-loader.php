@@ -6,8 +6,8 @@
  * @link       https://appandapp.net/isvaljek
  * @since      1.0.0
  *
- * @package    Robots_Warning
- * @subpackage Robots_Warning/includes
+ * @package    A3_Robots_Warning
+ * @subpackage A3_Robots_Warning/includes
  */
 
 /**
@@ -17,11 +17,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Robots_Warning
- * @subpackage Robots_Warning/includes
+ * @package    A3_Robots_Warning
+ * @subpackage A3_Robots_Warning/includes
  * @author     Ivan Švaljek <ivan.svaljek@gmail.com>
  */
-class Robots_Warning_Loader {
+class A3_Robots_Warning_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.
@@ -117,10 +117,14 @@ class Robots_Warning_Loader {
 	public function run() {
 
 		foreach ( $this->filters as $hook ) {
+			#A3_Robots_Warning_Logging::write_log([$hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args']]);
+
 			add_filter( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
 		}
 
 		foreach ( $this->actions as $hook ) {
+			#A3_Robots_Warning_Logging::write_log([$hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args']]);
+
 			add_action( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
 		}
 

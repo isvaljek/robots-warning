@@ -9,8 +9,8 @@
  * @link       https://appandapp.net/isvaljek
  * @since      1.0.0
  *
- * @package    Robots_Warning
- * @subpackage Robots_Warning/includes
+ * @package    A3_Robots_Warning
+ * @subpackage A3_Robots_Warning/includes
  */
 
 /**
@@ -20,11 +20,11 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    Robots_Warning
- * @subpackage Robots_Warning/includes
+ * @package    A3_Robots_Warning
+ * @subpackage A3_Robots_Warning/includes
  * @author     Ivan Švaljek <ivan.svaljek@gmail.com>
  */
-class Robots_Warning_i18n {
+class A3_Robots_Warning_i18n {
 
 
 	/**
@@ -35,7 +35,7 @@ class Robots_Warning_i18n {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'robots-warning',
+			'a3-robots-warning',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);

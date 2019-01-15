@@ -6,8 +6,8 @@
  * @link       https://appandapp.net/isvaljek
  * @since      1.0.0
  *
- * @package    Robots_Warning
- * @subpackage Robots_Warning/public
+ * @package    A3_Robots_Warning
+ * @subpackage A3_Robots_Warning/public
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the public-facing stylesheet and JavaScript.
  *
- * @package    Robots_Warning
- * @subpackage Robots_Warning/public
+ * @package    A3_Robots_Warning
+ * @subpackage A3_Robots_Warning/public
  * @author     Ivan Švaljek <ivan.svaljek@gmail.com>
  */
-class Robots_Warning_Public {
+class A3_Robots_Warning_Public {
 
 	/**
 	 * The ID of this plugin.
@@ -65,15 +65,15 @@ class Robots_Warning_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Robots_Warning_Loader as all of the hooks are defined
+		 * defined in A3_Robots_Warning_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Robots_Warning_Loader will then create the relationship
+		 * The A3_Robots_Warning_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/robots-warning-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/a3-robots-warning-public.css', array(), $this->version, 'all' );
 
 	}
 
@@ -88,15 +88,15 @@ class Robots_Warning_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Robots_Warning_Loader as all of the hooks are defined
+		 * defined in A3_Robots_Warning_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Robots_Warning_Loader will then create the relationship
+		 * The A3_Robots_Warning_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/robots-warning-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/a3-robots-warning-public.js', array( 'jquery' ), $this->version, false );
 
 	}
 

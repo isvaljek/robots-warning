@@ -22,7 +22,7 @@
  * @link       https://appandapp.net/isvaljek
  * @since      1.0.0
  *
- * @package    Robots_Warning
+ * @package    A3_Robots_Warning
  */
 
 // If uninstall not called from WordPress, then exit.

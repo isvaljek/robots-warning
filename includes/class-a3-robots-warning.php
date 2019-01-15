@@ -9,8 +9,8 @@
  * @link       https://appandapp.net/isvaljek
  * @since      1.0.0
  *
- * @package    Robots_Warning
- * @subpackage Robots_Warning/includes
+ * @package    A3_Robots_Warning
+ * @subpackage A3_Robots_Warning/includes
  */
 
 /**
@@ -23,11 +23,11 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    Robots_Warning
- * @subpackage Robots_Warning/includes
+ * @package    A3_Robots_Warning
+ * @subpackage A3_Robots_Warning/includes
  * @author     Ivan Švaljek <ivan.svaljek@gmail.com>
  */
-class Robots_Warning {
+class A3_Robots_Warning {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -35,7 +35,7 @@ class Robots_Warning {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Robots_Warning_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      A3_Robots_Warning_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -72,12 +72,13 @@ class Robots_Warning {
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->plugin_name = 'robots-warning';
+		$this->plugin_name = 'a3-robots-warning';
 
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
-		$this->define_public_hooks();		
+		$this->define_public_hooks();
+
 	}
 
 	/**
@@ -85,10 +86,10 @@ class Robots_Warning {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Robots_Warning_Loader. Orchestrates the hooks of the plugin.
-	 * - Robots_Warning_i18n. Defines internationalization functionality.
-	 * - Robots_Warning_Admin. Defines all hooks for the admin area.
-	 * - Robots_Warning_Public. Defines all hooks for the public side of the site.
+	 * - A3_Robots_Warning_Loader. Orchestrates the hooks of the plugin.
+	 * - A3_Robots_Warning_i18n. Defines internationalization functionality.
+	 * - A3_Robots_Warning_Admin. Defines all hooks for the admin area.
+	 * - A3_Robots_Warning_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -102,45 +103,48 @@ class Robots_Warning {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-robots-warning-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-a3-robots-warning-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-robots-warning-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-a3-robots-warning-i18n.php';
 
 		/**
 		 * The class responsible for site movement detection
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/detection/class-detection.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/detection/class-a3-robots-warning-detection.php';
 
 		/**
-		 * The class responsible admin notifications
+		 * The class responsible for admin notifications
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/notifications/class-notifications.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/notifications/class-a3-robots-warning-notifications.php';
+
+		/**
+		 * The class responsible for logging
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/logging/class-a3-robots-warning-logging.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-robots-warning-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-a3-robots-warning-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-robots-warning-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-a3-robots-warning-public.php';
 
-		
-
-		$this->loader = new Robots_Warning_Loader();
+		$this->loader = new A3_Robots_Warning_Loader();
 
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Robots_Warning_i18n class in order to set the domain and to register the hook
+	 * Uses the A3_Robots_Warning_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -148,7 +152,7 @@ class Robots_Warning {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Robots_Warning_i18n();
+		$plugin_i18n = new A3_Robots_Warning_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -163,17 +167,19 @@ class Robots_Warning {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Robots_Warning_Admin( $this->get_plugin_name(), $this->get_version() );
-		$plugin_notify = new A3_Robots_Notifications( $this->get_plugin_name(), $this->get_version() );
-
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'admin_init' );
+		$plugin_admin = new A3_Robots_Warning_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_notify = new A3_Robots_Warning_Notifications( $this->get_plugin_name(), $this->get_version() );
+		
+		$this->loader->add_filter( 'cron_schedules', $plugin_admin, 'add_custom_cron_schedule' );				
+		$this->loader->add_action( 'a3rw_check_ip', $plugin_admin, 'check_ip' );		
+		//$this->loader->add_action( 'admin_init', $plugin_admin, 'admin_init' );
 		
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );		
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
-		$this->loader->add_action( 'wp_ajax_a3_confirm_seo_new_ip', $plugin_admin, 'a3_confirm_seo_new_ip' );
+		$this->loader->add_action( 'wp_ajax_a3rw_confirm_seo_new_ip', $plugin_admin, 'confirm_seo_new_ip' );
 		$this->loader->add_action( 'admin_notices', $plugin_notify, 'ip_change_admin_notice_handler' );
-		$this->loader->add_action( 'updated_option', $plugin_notify, 'a3_option_updated', 10, 3);
+		$this->loader->add_action( 'updated_option', $plugin_notify, 'option_updated', 10, 3);
 	}
 
 	/**
@@ -185,7 +191,7 @@ class Robots_Warning {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Robots_Warning_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new A3_Robots_Warning_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
@@ -198,7 +204,7 @@ class Robots_Warning {
 	 * @since    1.0.0
 	 */
 	public function run() {
-		$this->loader->run();
+		$this->loader->run();		
 	}
 
 	/**
@@ -216,7 +222,7 @@ class Robots_Warning {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    Robots_Warning_Loader    Orchestrates the hooks of the plugin.
+	 * @return    A3_Robots_Warning_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;
