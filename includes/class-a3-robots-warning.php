@@ -67,8 +67,8 @@ class A3_Robots_Warning {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'PLUGIN_NAME_VERSION' ) ) {
-			$this->version = PLUGIN_NAME_VERSION;
+		if ( defined( 'A3_ROBOTS_WARNING_VERSION' ) ) {
+			$this->version = A3_ROBOTS_WARNING_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}

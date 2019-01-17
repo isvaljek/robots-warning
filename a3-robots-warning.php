@@ -16,7 +16,7 @@
  * Plugin Name:       A3 Robots Warning
  * Plugin URI:        https://appandapp.net/wp/plugins/a3-robots-warning/
  * Description:       Warns you of server IP address changes, so you can take care of Search Engine Visibility settings.
- * Version:           1.0.1
+ * Version:           1.0.2
  * Author:            Ivan Švaljek
  * Author URI:        https://appandapp.net/isvaljek
  * License:           GPL-2.0+
@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'PLUGIN_NAME_VERSION', '1.0.0' );
+define( 'A3_ROBOTS_WARNING_VERSION', '1.0.2' );
 
 /**
  * The code that runs during plugin activation.
