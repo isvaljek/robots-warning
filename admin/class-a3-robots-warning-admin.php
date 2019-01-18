@@ -125,7 +125,7 @@ class A3_Robots_Warning_Admin {
 			$notifications->create_notification($message1 . $message2, 'warning');				
 		}				
 
-		if( $ip_changed && $server_ip != $mail_sent_ip ) {
+		if( $server_ip != $mail_sent_ip ) {
 			$admin_email = get_bloginfo('admin_email');				
 			$headers = array('Content-Type: text/html; charset=UTF-8');
 
