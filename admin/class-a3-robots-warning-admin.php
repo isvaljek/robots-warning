@@ -96,6 +96,14 @@ class A3_Robots_Warning_Admin {
 		 * class.
 		 */
 
+		wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/a3-robots-warning-admin.js' );
+
+		$params = array(
+			'ajaxurl' => admin_url('admin-ajax.php'),
+			'ajax_nonce' => wp_create_nonce('a3-nononcense-a3'),
+		  );
+		wp_localize_script( $this->plugin_name, 'a3_ajax_object', $params );
+
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/a3-robots-warning-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
@@ -125,9 +133,10 @@ class A3_Robots_Warning_Admin {
 			$notifications->create_notification($message1 . $message2, 'warning');				
 		}				
 
-		if( $server_ip != $mail_sent_ip ) {
+		if( $server_ip && $server_ip != $mail_sent_ip ) {
 			$admin_email = get_bloginfo('admin_email');				
 			$headers = array('Content-Type: text/html; charset=UTF-8');
+			$message1 .= "<br>Old IP: " . $mail_sent_ip . ", New IP: " . $server_ip;
 
 			wp_mail($admin_email, "The IP address on site " . get_site_url() . " has changed", $message1, $headers);
 
@@ -155,6 +164,8 @@ class A3_Robots_Warning_Admin {
 	 * @since    1.0.0
 	 */
 	public function confirm_seo_new_ip() {				
+		check_ajax_referer( 'a3-nononcense-a3', 'security' );
+
 		$server_ip = A3_Robots_Warning_Detection::server_ip();
 		
 		update_option('a3rw_server_ip', $server_ip); 

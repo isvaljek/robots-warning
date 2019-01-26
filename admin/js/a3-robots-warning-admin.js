@@ -35,7 +35,7 @@
 		$button.on('click', function(e){			
 			$button.after('<div class="lds-css ng-scope" style="display: inline-block;vertical-align: text-top;"><div class="lds-gear" style="transform:scale(0.1)"><div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></div>');
 
-			$.get(ajaxurl + '?action=a3rw_confirm_seo_new_ip', {}, function(resp){
+			$.get(ajaxurl + '?action=a3rw_confirm_seo_new_ip&security=' + a3_ajax_object.ajax_nonce, {}, function(resp){
 				if(resp.success) $button.closest('.notice').remove();
 			});
 		});
